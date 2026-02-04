@@ -249,8 +249,7 @@ async def generate_revision(request: RevisionRequest, authorization: str = Heade
 # ============== SAVED REVISIONS ==============
 
 @api_router.post("/revisions", response_model=RevisionResponse)
-async def save_revision(request: SaveRevisionRequest, authorization: str = None):
-    from fastapi import Header
+async def save_revision(request: SaveRevisionRequest, authorization: str = Header(None)):
     
     user = await get_current_user(authorization)
     if not user:
