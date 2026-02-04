@@ -273,8 +273,7 @@ async def save_revision(request: SaveRevisionRequest, authorization: str = Heade
     return RevisionResponse(**revision)
 
 @api_router.get("/revisions", response_model=List[RevisionResponse])
-async def get_revisions(authorization: str = None):
-    from fastapi import Header
+async def get_revisions(authorization: str = Header(None)):
     
     user = await get_current_user(authorization)
     if not user:
