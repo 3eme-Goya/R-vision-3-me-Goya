@@ -283,8 +283,7 @@ async def get_revisions(authorization: str = Header(None)):
     return revisions
 
 @api_router.delete("/revisions/{revision_id}")
-async def delete_revision(revision_id: str, authorization: str = None):
-    from fastapi import Header
+async def delete_revision(revision_id: str, authorization: str = Header(None)):
     
     user = await get_current_user(authorization)
     if not user:
