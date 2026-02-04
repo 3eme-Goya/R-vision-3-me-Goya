@@ -222,7 +222,7 @@ async def generate_revision(request: RevisionRequest, authorization: str = Heade
         image_content = ImageContent(image_base64=request.image_base64)
         user_message = UserMessage(
             text=f"Voici le sujet/cours à réviser: {request.prompt}\n\nAnalyse également l'image jointe si pertinente.",
-            image_content=[image_content]
+            file_contents=[image_content]
         )
     else:
         user_message = UserMessage(text=f"Voici le sujet/cours à réviser: {request.prompt}")
