@@ -115,7 +115,7 @@ const WelcomePopup = ({ open, onClose }) => {
         <AlertDialogHeader>
           <AlertDialogTitle className="text-2xl font-black flex items-center gap-2">
             <Sparkles className="w-6 h-6 text-primary" />
-            Bienvenue sur 3ème Goya !
+            Bienvenue sur 3ème Goya révisions !
           </AlertDialogTitle>
           <AlertDialogDescription className="text-base text-foreground/80">
             Génère des fiches de révision, QCM et bien plus grâce à l'IA !
@@ -123,7 +123,15 @@ const WelcomePopup = ({ open, onClose }) => {
             <span className="font-semibold text-primary">💡 Conseil :</span> Créer un compte te permet de sauvegarder tes révisions et les retrouver à tout moment. C'est rapide et gratuit !
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+        <AlertDialogFooter className="flex-col sm:flex-row gap-3">
+          <AlertDialogAction 
+            onClick={() => { onClose(); window.location.href = "/login"; }}
+            className="neo-btn-primary w-full sm:w-auto"
+            data-testid="welcome-create-account-btn"
+          >
+            <User className="w-4 h-4 mr-2" />
+            Créer un compte
+          </AlertDialogAction>
           <AlertDialogAction 
             onClick={onClose} 
             className="neo-btn-secondary w-full sm:w-auto"
@@ -153,11 +161,20 @@ const Navbar = () => {
             data-testid="nav-logo"
           >
             <span className="text-2xl">📚</span>
-            <span className="hidden sm:inline">3ème Goya</span>
+            <span className="hidden sm:inline">3ème Goya révisions</span>
           </button>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              onClick={() => window.open("https://sites.google.com/view/bienvenue-sur-3eme-goya/", "_blank")}
+              className="font-semibold"
+              data-testid="nav-main-site"
+            >
+              <Globe className="w-4 h-4 mr-2" />
+              Retour au site principal
+            </Button>
             <Button 
               variant="ghost" 
               onClick={() => navigate("/")}
@@ -234,6 +251,14 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden pb-4 space-y-2">
+            <Button 
+              variant="ghost" 
+              onClick={() => { window.open("https://sites.google.com/view/bienvenue-sur-3eme-goya/", "_blank"); setMobileMenuOpen(false); }}
+              className="w-full justify-start font-semibold"
+            >
+              <Globe className="w-4 h-4 mr-2" />
+              Retour au site principal
+            </Button>
             <Button 
               variant="ghost" 
               onClick={() => { navigate("/"); setMobileMenuOpen(false); }}
@@ -343,8 +368,9 @@ const LandingPage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {features.map((feature, i) => (
-              <div 
+              <button 
                 key={i}
+                onClick={() => navigate("/generator")}
                 className="neo-card-hover flex flex-col items-center text-center p-6"
                 data-testid={`feature-card-${i}`}
               >
@@ -353,7 +379,7 @@ const LandingPage = () => {
                 </div>
                 <h3 className="font-bold mb-1">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.desc}</p>
-              </div>
+              </button>
             ))}
           </div>
         </section>
