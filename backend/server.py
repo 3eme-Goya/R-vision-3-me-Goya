@@ -200,8 +200,7 @@ Format en Markdown."""
     return prompts.get(revision_type, prompts["fiche"])
 
 @api_router.post("/generate", response_model=RevisionResponse)
-async def generate_revision(request: RevisionRequest, authorization: str = None):
-    from fastapi import Header
+async def generate_revision(request: RevisionRequest, authorization: str = Header(None)):
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="Clé API non configurée")
