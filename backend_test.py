@@ -262,20 +262,20 @@ class GoyadRevisionAPITester:
 
     def test_unauthorized_access(self):
         """Test endpoints that require authentication without token"""
-        # Test saving revision without auth
+        # Test saving revision without auth - should fail
         revision_data = {
             "prompt": "Test",
             "subject": "maths", 
             "revision_type": "fiche",
             "content": "Test content"
         }
-        self.run_test("Save Revision (No Auth)", "POST", "revisions", 401, revision_data)
+        result = self.run_test("Save Revision (No Auth)", "POST", "revisions", 401, revision_data)
         
-        # Test getting revisions without auth
-        self.run_test("Get Revisions (No Auth)", "GET", "revisions", 401)
+        # Test getting revisions without auth - should fail
+        result = self.run_test("Get Revisions (No Auth)", "GET", "revisions", 401)
         
-        # Test get current user without auth
-        self.run_test("Get Current User (No Auth)", "GET", "auth/me", 401)
+        # Test get current user without auth - should fail
+        result = self.run_test("Get Current User (No Auth)", "GET", "auth/me", 401)
 
     def run_all_tests(self):
         """Run all API tests"""
