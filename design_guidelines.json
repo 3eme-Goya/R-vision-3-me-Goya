@@ -1,0 +1,114 @@
+{
+  "identity": {
+    "name": "3ème Goya Révisions",
+    "vibe": "Neo-Brutalist Playful",
+    "description": "A high-energy, anti-boring revision tool for Gen Z students. It mixes raw, bold aesthetics with soft, friendly interactions.",
+    "archetype": "Vibrant Play (Archetype 6) with a Neo-Brutalist twist"
+  },
+  "typography": {
+    "headings": {
+      "family": "Outfit, sans-serif",
+      "weights": ["700", "900"],
+      "usage": "Main titles, section headers, big impact text",
+      "letterSpacing": "tracking-tight"
+    },
+    "body": {
+      "family": "Plus Jakarta Sans, sans-serif",
+      "weights": ["400", "500", "700"],
+      "usage": "Paragraphs, UI elements, inputs",
+      "letterSpacing": "tracking-normal"
+    },
+    "mono": {
+      "family": "JetBrains Mono, monospace",
+      "usage": "Code snippets, tags, technical data"
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "#FDFBF7",
+      "foreground": "#0f0f0f",
+      "primary": "#8B5CF6",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#A3E635",
+      "secondary_foreground": "#000000",
+      "accent": "#F472B6",
+      "accent_foreground": "#000000",
+      "muted": "#F3F4F6",
+      "muted_foreground": "#6B7280",
+      "border": "#000000",
+      "input": "#E5E7EB",
+      "ring": "#000000"
+    },
+    "gradients": {
+      "hero": "bg-gradient-to-br from-purple-400 to-pink-400",
+      "card_hover": "hover:bg-yellow-100"
+    },
+    "rules": "Use solid colors mostly. Gradients only for 'magical' AI moments. All borders must be pure black (#000000)."
+  },
+  "visual_enhancers": {
+    "borders": {
+      "default": "border-2 border-black",
+      "thick": "border-4 border-black",
+      "radius": "rounded-xl"
+    },
+    "shadows": {
+      "hard": "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
+      "hard_hover": "hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]",
+      "button": "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+    },
+    "textures": {
+      "noise": "opacity-5 pointer-events-none fixed inset-0 z-50 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"
+    }
+  },
+  "layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "grid_system": "Grid layouts should use the 'Bento' strategy. Mix 1x1 squares with 2x1 or 2x2 rectangles.",
+    "spacing": "Use generous padding (p-8, p-12) inside cards to prevent cramping."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-white font-bold py-3 px-6 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all",
+      "secondary": "bg-white text-black font-bold py-3 px-6 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-secondary transition-all"
+    },
+    "cards": {
+      "base": "bg-white border-2 border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-6",
+      "interactive": "cursor-pointer hover:-translate-y-1 transition-transform duration-200"
+    },
+    "inputs": {
+      "base": "border-2 border-black rounded-lg p-3 focus:ring-2 focus:ring-black focus:ring-offset-2 outline-none font-medium"
+    }
+  },
+  "image_urls": {
+    "hero": {
+      "url": "https://images.unsplash.com/photo-1757737488436-503bd810646d?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "description": "Abstract origami shapes representing structured learning",
+      "category": "hero_visual"
+    },
+    "subjects": {
+      "maths": "https://images.unsplash.com/photo-1722528490197-fcad1006e762?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "history": "https://images.unsplash.com/photo-1654691266843-4f52c1fd3228?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "science": "https://images.unsplash.com/photo-1646015047570-891526ba5259?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "arts": "https://images.unsplash.com/photo-1767482483143-47eb437db4ab?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "languages": "https://images.unsplash.com/photo-1767482483132-e8e0bff118b0?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "default": "https://images.unsplash.com/photo-1699304051652-d01fce384c50?crop=entropy&cs=srgb&fm=jpg&q=85"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Implement the 'Neo-Brutalist' style strictly: 2px solid black borders on EVERYTHING.",
+    "Use the 'hard shadow' utility class provided in visual_enhancers for all cards and buttons.",
+    "The 'Subject Selection' should be a visual grid of cards using the subject images provided, not just a boring dropdown.",
+    "The 'Revision Type' selector should be big, chunky toggle buttons.",
+    "Use the 'Outfit' font for all headings. Import it from Google Fonts.",
+    "Ensure the 'Welcome Popup' uses the 'alert-dialog' component but styled with the brutalist theme (white bg, black border, hard shadow).",
+    "For the 'Generated Content', use a paper-like texture or simple white bg with wide margins to simulate a real revision sheet.",
+    "Authentication pages should be simple: Split screen with a big abstract image on one side and the form on the other."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not use gradients for text.",
+    "Do not use rounded-full for buttons unless specified; prefer rounded-xl.",
+    "Always add 'data-testid' to interactive elements.",
+    "Use 'sonner' for toasts.",
+    "Ensure mobile responsiveness: Stack grids to 1 column on mobile.",
+    "Use 'lucide-react' for icons."
+  ]
+}
