@@ -68,6 +68,10 @@ class RevisionRequest(BaseModel):
     revision_type: str
     image_base64: Optional[str] = None
 
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    new_password: str
+
 class RevisionResponse(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str
@@ -152,6 +156,19 @@ async def get_me(authorization: str = Header(None)):
     if not user:
         raise HTTPException(status_code=401, detail="Non authentifié")
     return UserResponse(id=user["id"], email=user["email"], name=user["name"], created_at=user["created_at"])
+
+@api_router.post("/auth/reset-password")
+async def reset_password(request: ResetPasswordRequest):
+    user = await db.users.find_one({"email": request.email})
+    if not user:
+        raise HTTPException(status_code=404, detail="Aucun compte trouvé avec cet email")
+    
+    new_hashed = hash_password(request.new_password)
+    await db.users.update_one(
+        {"email": request.email},
+        {"$set": {"password": new_hashed}}
+    )
+    return {"message": "Mot de passe mis à jour avec succès"}
 
 # ============== LLM GENERATION ==============
 
