@@ -907,11 +907,14 @@ const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    name: ""
+    name: "",
+    newPassword: "",
+    confirmPassword: ""
   });
 
   const handleSubmit = async (e) => {
@@ -934,6 +937,122 @@ const LoginPage = () => {
       setLoading(false);
     }
   };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    
+    if (formData.newPassword !== formData.confirmPassword) {
+      toast.error("Les mots de passe ne correspondent pas");
+      return;
+    }
+    
+    if (formData.newPassword.length < 6) {
+      toast.error("Le mot de passe doit contenir au moins 6 caractères");
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      await axios.post(`${API}/auth/reset-password`, {
+        email: formData.email,
+        new_password: formData.newPassword
+      });
+      toast.success("Mot de passe mis à jour ! Tu peux te connecter.");
+      setIsForgotPassword(false);
+      setFormData({ ...formData, newPassword: "", confirmPassword: "" });
+    } catch (e) {
+      toast.error(e.response?.data?.detail || "Une erreur est survenue");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Forgot Password Form
+  if (isForgotPassword) {
+    return (
+      <div className="min-h-screen bg-background" data-testid="forgot-password-page">
+        <Navbar />
+        
+        <div className="max-w-md mx-auto px-4 py-16">
+          <div className="neo-card">
+            <h1 className="text-2xl font-bold text-center mb-2">
+              Mot de passe oublié
+            </h1>
+            <p className="text-center text-muted-foreground mb-6">
+              Entre ton email et choisis un nouveau mot de passe
+            </p>
+            
+            <form onSubmit={handleResetPassword} className="space-y-4">
+              <div>
+                <Label htmlFor="reset-email">Email</Label>
+                <Input
+                  id="reset-email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="neo-input mt-1"
+                  placeholder="ton@email.com"
+                  required
+                  data-testid="reset-email-input"
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="new-password">Nouveau mot de passe</Label>
+                <Input
+                  id="new-password"
+                  type="password"
+                  value={formData.newPassword}
+                  onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
+                  className="neo-input mt-1"
+                  placeholder="••••••••"
+                  required
+                  data-testid="new-password-input"
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="confirm-password">Confirmer le mot de passe</Label>
+                <Input
+                  id="confirm-password"
+                  type="password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  className="neo-input mt-1"
+                  placeholder="••••••••"
+                  required
+                  data-testid="confirm-password-input"
+                />
+              </div>
+              
+              <Button 
+                type="submit" 
+                disabled={loading}
+                className="neo-btn-primary w-full"
+                data-testid="reset-submit-btn"
+              >
+                {loading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  "Réinitialiser mon mot de passe"
+                )}
+              </Button>
+            </form>
+            
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => setIsForgotPassword(false)}
+                className="text-primary hover:underline font-medium"
+                data-testid="back-to-login"
+              >
+                Retour à la connexion
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background" data-testid="login-page">
@@ -989,6 +1108,19 @@ const LoginPage = () => {
                 data-testid="password-input"
               />
             </div>
+            
+            {!isRegister && (
+              <div className="text-right">
+                <button
+                  type="button"
+                  onClick={() => setIsForgotPassword(true)}
+                  className="text-sm text-primary hover:underline"
+                  data-testid="forgot-password-link"
+                >
+                  Mot de passe oublié ?
+                </button>
+              </div>
+            )}
             
             <Button 
               type="submit" 
